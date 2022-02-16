@@ -13,7 +13,7 @@ for f in OUTPUT/Data/_ExcelBinOutput/*; do
   cp -v $f test.bin; 
   ./xor.py test.bin ${XOR_BYTE}; 
   mv -v test.bin EBI_Dec/$X.bin; 
-  mono DataDumper.exe ${ASS_PATH} EBI_Dec/$X.bin out.json;
+  mono DataDumper.exe ${ASSSEMBLY_PATH} EBI_Dec/$X.bin out.json;
   json-glib-format -p out.json > ${OUT_DIR}/$X.json;
   rm out.json;
 done
