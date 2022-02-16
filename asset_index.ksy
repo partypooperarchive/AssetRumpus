@@ -1,6 +1,6 @@
 meta:
   id: asset_index
-  file-extension: suka
+  file-extension: funnycat
   endian: le
   encoding: UTF-8
 

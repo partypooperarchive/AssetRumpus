@@ -1,6 +1,6 @@
 meta:
   id: asset_bundle
-  file-extension: blyat
+  file-extension: lazydog
   endian: le
   encoding: UTF-8
   title: Unity AssetBundle according to format specification V17
