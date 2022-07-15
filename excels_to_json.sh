@@ -1,19 +1,22 @@
 #!/bin/bash
 
-if [ "$#" -ne 1 ]; then
-    echo "Illegal number of parameters! Please pass a path to unobfuscated DummyDlls"
-fi
+DLL_DIR="/home/mihoyo/hk4e_output/2.2.0-Fix/DummyDll"
+DATA_DIR="/home/mihoyo/hk4e_output/2.2.0-Fix/Data/_ExcelBinOutput"
+OUT_DIR="ExcelBinData_2850"
+XOR_BYTE="0x98"
 
-ASSSEMBLY_PATH="$1"
-OUT_DIR="JSON_250"
-XOR_BYTE="0x95"
+BINARY="DataDumper.exe"
 
-for f in OUTPUT/Data/_ExcelBinOutput/*; do 
+TEMPDIR=`mktemp -d`
+
+for f in ${IN_DIR}/*; do 
   X=`echo $f | xargs basename`; 
   cp -v $f test.bin; 
   ./xor.py test.bin ${XOR_BYTE}; 
-  mv -v test.bin EBI_Dec/$X.bin; 
-  mono DataDumper.exe ${ASSSEMBLY_PATH} EBI_Dec/$X.bin out.json;
+  mv -v test.bin ${TEMPDIR}/$X.bin; 
+  mono ${BINARY} ${DLL_DIR} ${TEMPDIR}/$X.bin out.json;
   json-glib-format -p out.json > ${OUT_DIR}/$X.json;
   rm out.json;
 done
+
+rm -r ${TEMPDIR}
